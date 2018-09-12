@@ -1,0 +1,42 @@
+<!DOCTYPE HTML5>
+<html ng-app="proteas">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="JS/angularMain.js"></script>
+	<title>Hello World</title>
+	<link href="CSS/angularMain.css" rel="stylesheet" type="text/css">
+</head>
+	<div class="content">
+		<input type="text" ng-model="inputText" placeholder="Type Your Name">
+			<h1>Hello {{inputText}}</h1><br><br>
+			<!-- ng-init for variable initialization-->
+			<h3> The list of PROTEAS players:</h3>
+			<p ng-init="proteas=['AB DE VILLIERS','FAF DU PLESIS','QUINTON DE KOCK','HASIM AMLA','KAGISO RABADA']"></p>
+			<ul>
+		 	<!--works like foreach loop-->
+				<li ng-repeat="y in proteas">{{y}}</li>
+			</ul>
+			<div ng-controller="appController">
+			<!-- works only under this because of the scope-->
+				<button ng-click="order = 'name'">Order By Name</button>
+				<button ng-click="order = 'des'">Order By Des</button>
+				<input type="text" ng-model="search">
+				<ul>
+				<!-- order is a variable here in orderBy -->
+					<li ng-repeat="x in protea | orderBy: order | filter: search" ng-show="x.available">
+						<img ng-src="{{x.thumb}}" style="margin: -12px 10px 0 0; float:left;width:50px;" ng-show="x.thumb"/>
+						<h3>{{x.name}}</h3>
+						<div class="remove" ng-click="removeProtea(x)">x</div>
+						<span>{{x.des}} --> {{x.star_power}}</span>
+					</li>
+				</ul>
+				<form ng-submit="addProtea()">
+					<input type="text" placeholder="Name" ng-model="newprotea.name"/>
+					<input type="text" placeholder="Des" ng-model="newprotea.des"/>
+					<input type="text" placeholder="Star_power" ng-model="newprotea.star_power"/>
+					<input type="submit" value="Add new Proteas"/>
+				</form>
+			</div>
+	</div> 
+</body>
+</html>
